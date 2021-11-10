@@ -34,17 +34,23 @@ struct Line {
     Line(double A = 0, double B = 0, double C = 0) : A(A), B(B), C(C) {}
 
     Line(const Point& p1, const Point& p2) {
-        /*if(p1.x - p2.x == 0) {
+        if(p1.x - p2.x == 0) {
             cout << "Division by 0. Change the values!" << endl;
-            return 0;
-        }*/
-        A = (p1.y - p2.y)/(p1.x - p2.x);
-        B = -1;
-        C = p1.y - A*p1.x;
+            //return 0;
+        } else {
+            A = (p1.y - p2.y)/(p1.x - p2.x);
+            B = -1;
+            C = p1.y - A*p1.x;
+        }
     }
 
     bool parallel(const Line& other) const {
-        return eq(this->A/other.A, this->B/other.B) && this->C != other.C;
+        if(other.A == 0 || other.B == 0) {
+            cout << "Division by 0. Change the values!" << endl;
+            return false;
+        } else {
+            return eq(this->A/other.A, this->B/other.B) && this->C != other.C;
+        }
     }
 
     Line parallel(const Point& p) {
@@ -52,7 +58,12 @@ struct Line {
     }
 
     bool perpendicular(const Line& other) const {
-        return eq(this->A/-(this->B), this->B/other.A);
+        if(other.B == 0 || other.A == 0) {
+            cout << "Division by 0. Change the values!" << endl;
+            return false;
+        } else {
+            return eq(this->A/-(other.B), this->B/other.A);
+        }
     }
 
     Line perpendicular(const Point& p) {
