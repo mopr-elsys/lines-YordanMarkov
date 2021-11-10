@@ -53,9 +53,8 @@ struct Line {
             } else {
                 return false;
             }
-        } else {
-            return eq(this->A/other.A, this->B/other.B) && this->C != other.C;
         }
+        return eq(this->A/other.A, this->B/other.B) && this->C != other.C;
     }
 
     Line parallel(const Point& p) {
@@ -71,9 +70,8 @@ struct Line {
             } else {
                 return false;
             }
-        } else {
-            return eq(this->A/-(other.B), this->B/other.A);
         }
+        return eq(this->A/-(other.B), this->B/other.A);
     }
 
     Line perpendicular(const Point& p) {
