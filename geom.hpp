@@ -35,8 +35,7 @@ struct Line {
 
     Line(const Point& p1, const Point& p2) {
         if(p1.x - p2.x == 0) {
-            //cout << "Division by 0. Change the values!" << endl;
-            //return 0;
+            return;
         } else {
             A = (p1.y - p2.y)/(p1.x - p2.x);
             B = -1;
@@ -46,13 +45,7 @@ struct Line {
 
     bool parallel(const Line& other) const {
         if(other.A == 0 || other.B == 0) {
-            if(other.A == other.B) {
-                if(this->A == this->B) {
-                    return true;
-                }
-            } else {
-                return false;
-            }
+            return false;
         }
         return eq(this->A/other.A, this->B/other.B) && this->C != other.C;
     }
@@ -63,13 +56,7 @@ struct Line {
 
     bool perpendicular(const Line& other) const {
         if(other.B == 0 || other.A == 0) {
-            if(other.B == other.A) {
-                if(this->A == this->B) {
-                    return true;
-                }
-            } else {
-                return false;
-            }
+            return false;
         }
         return eq(this->A/-(other.B), this->B/other.A);
     }
