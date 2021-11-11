@@ -35,7 +35,7 @@ struct Line {
 
     Line(const Point& p1, const Point& p2) {
         A = p1.y - p2.y;
-        B = p1.x - p2.x;
+        B = p2.x - p1.x;
         C = -(A*p1.x + B*p1.y);
     }
 
