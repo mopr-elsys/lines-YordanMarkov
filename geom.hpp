@@ -34,20 +34,14 @@ struct Line {
     Line(double A = 0, double B = 0, double C = 0) : A(A), B(B), C(C) {}
 
     Line(const Point& p1, const Point& p2) {
-        if(p1.x - p2.x == 0) {
-            return;
-        } else {
-            A = (p1.y - p2.y)/(p1.x - p2.x);
-            B = -1;
-            C = p1.y - A*p1.x;
-        }
+        A = p1.y - p2.y;
+        B = p1.x - p2.x;
+        C = -(A*p1.x + B*p1.y);
     }
 
     bool parallel(const Line& other) const {
-        if(other.A == 0 || other.B == 0) {
-            return false;
-        }
-        return eq(this->A/other.A, this->B/other.B) && this->C != other.C;
+        //return eq(this->A/other.A, this->B/other.B) && this->C != other.C;
+        return eq(this->A*other.B, this->B*other.A) && this->C != other.C;
     }
 
     Line parallel(const Point& p) {
@@ -55,10 +49,11 @@ struct Line {
     }
 
     bool perpendicular(const Line& other) const {
-        if(other.B == 0 || other.A == 0) {
+        /*if(other.B == 0 || other.A == 0) {
             return false;
-        }
-        return eq(this->A/-(other.B), this->B/other.A);
+        }*/
+        //return eq(this->A/-(other.B), this->B/other.A);
+        return eq(this->A*other.A, this->B*(-(other.B)));
     }
 
     Line perpendicular(const Point& p) {
@@ -66,7 +61,7 @@ struct Line {
     }
 
     void print(ostream& out) const {
-        out<< A << "x + "<< B<< "y + "<< C<< " = 0";
+        out<< A << "x + "<< B << "y + "<< C << " = 0";
     }
 };
 
